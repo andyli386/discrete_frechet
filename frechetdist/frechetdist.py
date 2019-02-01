@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from numba import jit
 import math
 import numpy as np
 
 __all__ = [ 'frdist' ]
 
+@jit(nopython=True)
 def _c(ca,i,j,p,q):
 
     if ca[i,j] > -1:
@@ -26,7 +27,8 @@ def _c(ca,i,j,p,q):
             np.linalg.norm(p[i]-q[j])                                            \
             )                                                          
     else:
-        ca[i,j] = float('inf')
+        #ca[i,j] = float('inf')
+        ca[i,j] = 1e30000
     
     return ca[i,j]
 
